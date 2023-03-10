@@ -11,40 +11,40 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository{
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
-    public UserRepositoryImpl(EntityManager em) {
-        this.em = em;
+    public UserRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
     public User getUserById(int id) {
-        return em.find(User.class, id);
+        return entityManager.find(User.class, id);
     }
 
     @Override
     public void save(User user) {
-        em.persist(user);
+        entityManager.persist(user);
     }
 
     @Override
     public User getUserByUsername(String username) {
-        return (User) em.createQuery("select us from User us where us.username = ?1").setParameter(1, username).getSingleResult();
+        return (User) entityManager.createQuery("select us from User us where us.username = ?1").setParameter(1, username).getSingleResult();
     }
 
     @Override
     public List<User> getAllUsers() {
-        return em.createQuery("select us from User us").getResultList();
+        return entityManager.createQuery("select us from User us").getResultList();
     }
 
     @Override
     public void remove(int id) {
-        em.remove(getUserById(id));
+        entityManager.remove(getUserById(id));
     }
 
     @Override
     public void update(int id, User user) {
-        em.merge(user);
+        entityManager.merge(user);
     }
 
 }

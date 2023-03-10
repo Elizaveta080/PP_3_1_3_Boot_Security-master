@@ -11,15 +11,15 @@ import javax.transaction.Transactional;
 public class RoleRepositoryImpl implements RoleRepository{
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
-    public RoleRepositoryImpl(EntityManager em) {
-        this.em = em;
+    public RoleRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
     @Transactional
     public void save(Role role) {
-        em.persist(role);
+        entityManager.persist(role);
     }
 }
